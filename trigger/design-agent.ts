@@ -253,7 +253,7 @@ export const designAgent = task({
                     userInfo: AI_USER_INFO,
                     ttl: 3_000,
                 })
-                .catch(() => { });
+                .catch(() => {});
         }
     },
 });
