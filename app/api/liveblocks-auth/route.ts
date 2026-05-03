@@ -6,6 +6,14 @@ import {
 } from "@/lib/project-access";
 
 export async function POST(request: Request) {
+
+    const secret = process.env.LIVEBLOCKS_SECRET_KEY!;
+
+    console.log("SECRET RAW:", JSON.stringify(secret));
+    console.log("LENGTH:", secret?.length);
+    console.log("FIRST:", secret?.slice(0, 5));
+    console.log("LAST:", secret?.slice(-5));
+    
     const identity = await getCurrentProjectIdentity();
 
     if (!identity.userId) {
