@@ -27,6 +27,7 @@ export function EditorWorkspaceClient({
     sharedProjects,
     roomId,
 }: EditorWorkspaceClientProps) {
+    
     const [sidebarOpen, setSidebarOpen] = useState(true)
     const [aiSidebarOpen, setAiSidebarOpen] = useState(true)
     const [shareDialogOpen, setShareDialogOpen] = useState(false)
