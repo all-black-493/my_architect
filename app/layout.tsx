@@ -1,15 +1,24 @@
+// For adding custom fonts with other frameworks, see:
+// https://tailwindcss.com/docs/font-family
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Outfit, Alegreya, JetBrains_Mono } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs"
+import { dark } from "@clerk/ui/themes"
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const fontSans = Outfit({
   subsets: ["latin"],
+  variable: "--font-sans",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const fontSerif = Alegreya({
   subsets: ["latin"],
+  variable: "--font-serif",
+});
+
+const fontMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
@@ -23,11 +32,56 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+    <ClerkProvider
+      appearance={{
+        cssLayerName: "clerk",
+        theme: dark,
+        variables: {
+          colorBackground: "var(--color-background)",
+          colorForeground: "var(--color-foreground)",
+
+          colorPrimary: "var(--color-primary)",
+          colorPrimaryForeground: "var(--color-primary-foreground)",
+
+          colorNeutral: "var(--color-muted-foreground)",
+
+          colorInput: "var(--color-input)",
+          colorInputForeground: "var(--color-foreground)",
+
+          colorDanger: "var(--color-primary)",
+          colorSuccess: "var(--color-primary)",
+          colorWarning: "var(--color-primary)",
+
+          borderRadius: "var(--radius-lg)",
+          fontFamily: "var(--font-sans)",
+        },
+
+        elements: {
+          card:
+            "bg-card text-card-foreground border border-border shadow-md rounded-xl",
+
+          headerTitle: "text-foreground font-semibold",
+          headerSubtitle: "text-muted-foreground",
+
+          formButtonPrimary:
+            "bg-primary text-primary-foreground hover:opacity-90",
+
+          formFieldInput:
+            "bg-input text-foreground border border-border focus:ring-primary",
+
+          footerActionLink:
+            "text-primary hover:opacity-80",
+
+          socialButtonsBlockButton:
+            "bg-card text-foreground border border-border hover:bg-accent",
+        },
+      }}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
-    </html>
+      <html lang="en" className="dark text-sm">
+        <body className={`${fontSans.variable} ${fontSerif.variable} ${fontMono.variable} antialiased`}>
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
